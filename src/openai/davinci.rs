@@ -1,6 +1,5 @@
 use regex::Regex;
 use reqwest;
-use serde_json::json;
 use std::collections::HashMap;
 use std::time;
 use tokio::task;
@@ -34,7 +33,13 @@ impl Davinci {
         let body = format!(
             "{{ \
             \"prompt\": \"{}\", \
-            \"max_tokens\": {} \
+            \"max_tokens\": {}, \
+            \"best_of\": 1,
+            \"frequency_penalty\": 0,
+            \"presence_penalty\": 0.6,
+            \"stop\": [\"Friend\", \"You\"],
+            \"temperature\": 0.9,
+            \"top_p\": 1
         }}",
             prompt, prompt.len()
         );
